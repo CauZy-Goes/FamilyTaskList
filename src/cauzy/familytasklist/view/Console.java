@@ -16,7 +16,7 @@ import cauzy.familytasklist.util.FamilyPeople.ValidationFamilyPeople;
 import cauzy.familytasklist.util.Task.ValidationTask;
 
 public class Console {
-	
+
 	DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	private final Scanner scan = new Scanner(System.in);
@@ -38,11 +38,12 @@ public class Console {
 			System.out.println("5. Add task in taskList");
 			System.out.println("6. Remove task of tasklist");
 			System.out.println("7. Update task from tasklist");
-			System.out.println("8. List tasks of tasklist");
-			System.out.println("9. Filter task of tasklist by status");
-			System.out.println("10. Filter task of tasklist by tasklevel");
-			System.out.println("11. Filter task of tasklist by member of family");
-			System.out.println("12. Sair");
+			System.out.println("8. Conclude task of tasklist");
+			System.out.println("9. List tasks of tasklist");
+			System.out.println("10. Filter task of tasklist by status");
+			System.out.println("11. Filter task of tasklist by tasklevel");
+			System.out.println("12. Filter task of tasklist by member of family");
+			System.out.println("13. Sair");
 			System.out.print("Choose a option: ");
 			int option = scan.nextInt();
 			scan.nextLine();
@@ -70,18 +71,21 @@ public class Console {
 				updateTask();
 				break;
 			case 8:
-				listTasks();
+				concludeTask();
 				break;
 			case 9:
-				filterTaskByStatus();
+				listTasks();
 				break;
 			case 10:
-				filterTaskByTaskLevel();
+				filterTaskByStatus();
 				break;
 			case 11:
-				filterTaskByMemberFamily();
+				filterTaskByTaskLevel();
 				break;
 			case 12:
+				filterTaskByMemberFamily();
+				break;
+			case 13:
 				exit = true;
 				break;
 			default:
@@ -92,6 +96,13 @@ public class Console {
 		scan.close();
 	}
 
+	private void concludeTask() {
+		listTasks();
+		System.out.println("Which task was concluded ? ");
+		taskList.concludeTaskById(scan.nextInt());
+		System.out.println("The task was concluded !");
+	}
+
 	private void addPerson() {
 		try {
 			System.out.print("Name of person: ");
@@ -100,11 +111,11 @@ public class Console {
 			int age = scan.nextInt();
 			scan.nextLine();
 			FamilyMember familyMember = new FamilyMember(name, age);
-			if(!ValidationFamilyPeople.validateStringSizeMin(familyMember)) {
+			if (!ValidationFamilyPeople.validateStringSizeMin(familyMember)) {
 				System.out.println("invalid name, it need to have more than 3 letters !");
 				return;
 			}
-			if(!ValidationFamilyPeople.ValidationMinAge(familyMember)) {
+			if (!ValidationFamilyPeople.ValidationMinAge(familyMember)) {
 				System.out.println("invalid age, it can't to be less than 0 years");
 				return;
 			}
@@ -184,27 +195,28 @@ public class Console {
 				level = TaskLevel.HARD;
 				break;
 			default:
-				level  = null;
+				level = null;
 				System.out.println("Invalid Option");
 				return;
 			}
 			System.out.println("Which member of family id will be responsible for the task: ");
 			listFamilyMembers();
-			FamilyMember familyMember =  taskList.getFamilyMemberById(scan.nextInt());
+			FamilyMember familyMember = taskList.getFamilyMemberById(scan.nextInt());
 			scan.nextLine();
-			if(familyMember == null) {
+			if (familyMember == null) {
 				System.out.println("Family member wasn't founded");
 				return;
 			}
 			TaskFamily taskFamily = new TaskFamily(description, date, level, familyMember);
-			
-			if(ValidationTask.ValidationAssinment(taskFamily, familyMember.getAgeGroup())) {
+
+			if (ValidationTask.ValidationAssinment(taskFamily, familyMember.getAgeGroup())) {
 				taskList.addNewTask(taskFamily);
 				System.out.println("Task added with success !");
 			} else {
 				System.out.println("The familyMember don't have the requisiton to do the task");
-			};
-			
+			}
+			;
+
 		} catch (InputMismatchException e) {
 			System.out.println("Invalid input");
 		} catch (DateTimeParseException e) {
@@ -252,26 +264,27 @@ public class Console {
 				level = TaskLevel.HARD;
 				break;
 			default:
-				level  = null;
+				level = null;
 				System.out.println("Invalid Option");
 				return;
 			}
 			System.out.println("Which member of family id will be responsible for the task: ");
 			listFamilyMembers();
-			FamilyMember familyMember =  taskList.getFamilyMemberById(scan.nextInt());
+			FamilyMember familyMember = taskList.getFamilyMemberById(scan.nextInt());
 			scan.nextLine();
-			if(familyMember == null) {
+			if (familyMember == null) {
 				System.out.println("Family member wasn't founded");
 				return;
 			}
 			TaskFamily taskFamily = new TaskFamily(description, date, level, familyMember, id);
-			
-			if(ValidationTask.ValidationAssinment(taskFamily, familyMember.getAgeGroup())) {
+
+			if (ValidationTask.ValidationAssinment(taskFamily, familyMember.getAgeGroup())) {
 				taskList.updateTaskById(taskFamily, id);
 				System.out.println("Task updated with success !");
 			} else {
 				System.out.println("The familyMember don't have the requisiton to do the task");
-			};
+			}
+			;
 
 		} catch (InputMismatchException e) {
 			System.out.println("Invalid input");
@@ -304,7 +317,7 @@ public class Console {
 				System.out.println("Invalid Option");
 				return;
 			}
-			
+
 		} catch (InputMismatchException e) {
 			System.out.println("Invalid input");
 		}

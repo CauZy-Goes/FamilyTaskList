@@ -61,6 +61,17 @@ public class TaskList {
 		}
 	}
 	
+	public void concludeTaskById(int id){
+		TaskFamily taskFamily = taskList.stream().filter(task -> id == task.getId()).findFirst().orElse(null);
+		if(taskFamily != null) {
+			removeTaskById(taskFamily.getId());
+			taskFamily.concludeTask();
+			addNewTask(taskFamily);
+		} else {
+			System.out.println("Task wasn't founded");
+		}
+	}
+	
 	public void removePeopleById(int id) {
 		peopleList = peopleList.stream().filter(people -> people.getId() != id).collect(Collectors.toList());
 	}
