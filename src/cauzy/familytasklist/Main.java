@@ -13,9 +13,12 @@ public class Main {
 
 	public static void main(String[] args) {
 		TaskList taskList = new TaskList();
+		Thread reminder = new Thread(taskList);
 		Console console = new Console(taskList);
 		inicialFamily(taskList);
+		reminder.start();
 		console.startConsole();
+		reminder.interrupt();
 	}
 
 	private static void inicialFamily(TaskList taskList) {
@@ -33,5 +36,4 @@ public class Main {
 		taskList.addNewTask( new TaskFamily("Take Natan to doctor", LocalDate.parse("23/12/2010",fmt), TaskLevel.HARD, taskList.getFamilyMemberById(1)));
 		taskList.addNewTask( new TaskFamily("Call to eletricist", LocalDate.parse("23/12/2039",fmt), TaskLevel.MEDIUM, taskList.getFamilyMemberById(0)));
 	}
-
 }
