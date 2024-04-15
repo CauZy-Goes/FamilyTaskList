@@ -35,6 +35,10 @@ public class TaskList {
 		return taskList.stream().filter(task -> task.getTaskLevel() == taskLevel).collect(Collectors.toList());
 	}
 	
+	public List<TaskFamily> getTaskListByMemberFamilyId(int id) {
+		return taskList.stream().filter(task -> task.getFamilyMember().getId() == id).collect(Collectors.toList());
+	}
+	
 	public void addNewPeople(FamilyMember people) {
 		peopleList.add(people);
 	}
