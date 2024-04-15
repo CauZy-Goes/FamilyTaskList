@@ -2,11 +2,12 @@ package cauzy.familytasklist.util.Task;
 
 import java.lang.reflect.Field;
 
+import cauzy.familytasklist.model.enums.AgeGroup;
 import cauzy.familytasklist.model.enums.TaskLevel;
 
 public class ValidationTask {
 
-	public static boolean ValidationAssinment(Object obj, TaskLevel taskLevel) {
+	public static boolean ValidationAssinment(Object obj, AgeGroup ageGroup) {
 
 		if (obj == null) {
 			return false;
@@ -25,16 +26,19 @@ public class ValidationTask {
 						TaskLevel levelValue = (TaskLevel) value;
 
 						switch (levelValue) {
-						case EASY:
-							if (levelValue != taskLevel) {
+						case MEDIUM:
+							if (ageGroup == AgeGroup.CHILD) {
 								return false;
 							}
 							;
 							break;
-						case MEDIUM:
-							if (levelValue == TaskLevel.HARD) {
+						case HARD	:
+							if (ageGroup == AgeGroup.CHILD) {
 								return false;
 							}
+							if (ageGroup == AgeGroup.TEEN) {
+								return false;
+							}		
 							;
 						default:
 							break;

@@ -12,6 +12,11 @@ public abstract class Task {
 		this.id = idCounter;
 		idCounter ++;
 	}
+	
+	public Task(String description, Integer id) {
+		this.description = description;
+		this.id = id;
+	}
 
 	public String getDescription() {
 		return description;

@@ -10,6 +10,7 @@ public class ValidationFamilyPeople {
         }
 
         Class<?> clazz = obj.getClass();
+        clazz = clazz.getSuperclass();
         Field[] fields = clazz.getDeclaredFields();
 
         for (Field field : fields) {
@@ -40,6 +41,7 @@ public class ValidationFamilyPeople {
         }
 
         Class<?> clazz = obj.getClass();
+        clazz = clazz.getSuperclass();
         Field[] fields = clazz.getDeclaredFields();
 
         for (Field field : fields) {

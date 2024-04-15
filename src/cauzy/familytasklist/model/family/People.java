@@ -7,9 +7,9 @@ public abstract class People {
 	
 	private static Integer idCounter = 0;
 	
-	@StringSizeMin
+	@StringSizeMin(3)
 	protected String name;
-	@MinAge
+	@MinAge(0)
 	protected Integer age;
 	protected Integer id;
 	

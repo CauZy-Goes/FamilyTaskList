@@ -5,16 +5,26 @@ import java.time.LocalDate;
 import cauzy.familytasklist.model.enums.Status;
 import cauzy.familytasklist.model.enums.TaskLevel;
 import cauzy.familytasklist.model.family.FamilyMember;
+import cauzy.familytasklist.util.Task.DificultLevel;
 
 public final class TaskFamily extends Task {
 
 	private LocalDate deadLine;
+	@DificultLevel
 	private TaskLevel taskLevel;
 	private Status status;
 	private FamilyMember familyMember;
 
 	public TaskFamily(String description, LocalDate deadLine, TaskLevel taskLevel, FamilyMember familyMember) {
 		super(description);
+		this.deadLine = deadLine;
+		this.taskLevel = taskLevel;
+		this.familyMember = familyMember;
+		setStatus();
+	}
+	
+	public TaskFamily(String description, LocalDate deadLine, TaskLevel taskLevel, FamilyMember familyMember, Integer id) {
+		super(description, id);
 		this.deadLine = deadLine;
 		this.taskLevel = taskLevel;
 		this.familyMember = familyMember;

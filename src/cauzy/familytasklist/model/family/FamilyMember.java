@@ -13,7 +13,7 @@ public final class FamilyMember extends People {
 	
 	@Override
 	public String toString() {
-		return id + " - " + "Name: " + name + "Age: " + age + "AgeGroup: " + ageGroup;
+		return id + " - " + " Name: " + name + ", Age: " + age + ", AgeGroup: " + ageGroup;
 	}
 
 	private void ageGroupSelection(Integer age) {

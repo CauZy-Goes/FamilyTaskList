@@ -19,6 +19,10 @@ public class TaskList {
 		return peopleList;
 	}
 	
+	public FamilyMember getFamilyMemberById(int id) {
+		return peopleList.stream().filter(person -> person.getId() == id).findFirst().orElse(null);
+	}
+	
 	public List<FamilyMember> getPeopleListByAgeGroup(AgeGroup ageGroup) {
 		return peopleList.stream().filter(people -> people.getAgeGroup() == ageGroup).collect(Collectors.toList());
 	}
@@ -39,19 +43,19 @@ public class TaskList {
 		return taskList.stream().filter(task -> task.getFamilyMember().getId() == id).collect(Collectors.toList());
 	}
 	
-	public void addNewPeople(FamilyMember people) {
-		peopleList.add(people);
+	public void addNewPerson(FamilyMember person) {
+		peopleList.add(person);
 	}
 	
 	public void addNewTask(TaskFamily task) {
 		taskList.add(task);
 	}
 	
-	public void updateTaskById(int id) {
+	public void updateTaskById(TaskFamily newTaskFamily, int id) {
 		TaskFamily taskFamily = taskList.stream().filter(task -> id == task.getId()).findFirst().orElse(null);
 		if(taskFamily != null) {
 			removeTaskById(taskFamily.getId());
-			addNewTask(taskFamily);
+			addNewTask(newTaskFamily);
 		} else {
 			System.out.println("Task wasn't founded");
 		}
