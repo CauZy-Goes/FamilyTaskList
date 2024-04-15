@@ -4,18 +4,43 @@ import java.time.LocalDate;
 
 import cauzy.familytasklist.model.enums.Status;
 import cauzy.familytasklist.model.enums.TaskLevel;
+import cauzy.familytasklist.model.family.FamilyMember;
 
 public final class TaskFamily extends Task {
 
 	private LocalDate deadLine;
 	private TaskLevel taskLevel;
 	private Status status;
+	private FamilyMember familyMember;
 
-	public TaskFamily(String description, LocalDate deadLine, TaskLevel taskLevel) {
+	public TaskFamily(String description, LocalDate deadLine, TaskLevel taskLevel, FamilyMember familyMember) {
 		super(description);
 		this.deadLine = deadLine;
 		this.taskLevel = taskLevel;
+		this.familyMember = familyMember;
 		setStatus();
+	}
+	
+	
+	
+	@Override
+	public String toString() {
+		switch(status) {
+		case PENDING :
+			return id + " - " + description + " need to do by " + familyMember.getName() + " until " + deadLine + " Status " + status;
+		case CONCLUDED :
+			return id + " - " + description + " was conclused by " + familyMember.getName() + " Status " + status;
+		case OUT_OF_TIME :
+			return id + " - " + description + " need to do by " + familyMember.getName() + " Status " + status;
+		default : 
+			return "erro";
+		}
+	}
+
+
+
+	public FamilyMember getFamilyMember() {
+		return familyMember;
 	}
 
 	private void setStatus() {
@@ -26,6 +51,7 @@ public final class TaskFamily extends Task {
 		}
 	}
 	
+
 	public void concludeTask() {
 		status = Status.CONCLUDED;
 	}

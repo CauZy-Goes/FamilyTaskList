@@ -10,6 +10,11 @@ public final class FamilyMember extends People {
 		super(name, age);
 		ageGroupSelection(age);
 	}
+	
+	@Override
+	public String toString() {
+		return id + " - " + "Name: " + name + "Age: " + age + "AgeGroup: " + ageGroup;
+	}
 
 	private void ageGroupSelection(Integer age) {
 

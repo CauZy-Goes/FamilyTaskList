@@ -5,7 +5,7 @@ public abstract class Task {
 	private static Integer idCounter = 0;
 	
 	protected String description;
-	private Integer id;
+	protected Integer id;
 	
 	public Task(String description) {
 		this.description = description;

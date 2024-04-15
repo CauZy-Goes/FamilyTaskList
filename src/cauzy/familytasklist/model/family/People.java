@@ -5,16 +5,25 @@ import cauzy.familytasklist.util.FamilyPeople.StringSizeMin;
 
 public abstract class People {
 	
+	private static Integer idCounter = 0;
+	
 	@StringSizeMin
 	protected String name;
 	@MinAge
-	protected Integer Age;
+	protected Integer age;
+	protected Integer id;
 	
 	public People(String name, Integer age) {
 		this.name = name;
-		Age = age;
+		this.age = age;
+		id = idCounter;
+		idCounter ++;
 	}
-
+	
+	public Integer getId() {
+		return id;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -24,11 +33,11 @@ public abstract class People {
 	}
 
 	public Integer getAge() {
-		return Age;
+		return age;
 	}
 
 	public void setAge(Integer age) {
-		Age = age;
+		this.age = age;
 	}
 	
 }
